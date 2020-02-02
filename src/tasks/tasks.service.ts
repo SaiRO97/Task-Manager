@@ -10,7 +10,7 @@ import { GetTasksFilterDto } from './dto/get-task-filter.dto';
 export class TasksService {
   constructor(
     @InjectRepository(TaskRepository)
-    private taskRepository: TaskRepository,
+    private readonly taskRepository: TaskRepository,
   ) {
   }
 
@@ -32,7 +32,7 @@ export class TasksService {
   }
 
   async getAllTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
-    return await this.taskRepository.find();
+    return await this.taskRepository.getTasks(filterDto);
   }
 
   async updateTaskStatus(id: number, status: TaskStatus): Promise<Task>{
