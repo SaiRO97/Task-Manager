@@ -35,19 +35,11 @@ export class TasksService {
     return await this.taskRepository.getTasks(filterDto);
   }
 
-  async updateTaskStatus(id: number, status: TaskStatus): Promise<Task>{
+  async updateTaskStatus(id: number, status: TaskStatus): Promise<Task> {
     const task = await this.getTaskById(id);
     task.status = status;
     await task.save();
     return task;
   }
 
-
-  //
-  //
-  // updateTaskStatus(id: string, status: TaskStatus): Task {
-  //   const task: Task = this.getTaskById(id);
-  //   task.status = status;
-  //   return task;
-  // }
 }

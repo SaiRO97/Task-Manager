@@ -11,8 +11,15 @@ export class TaskRepository extends Repository<Task> {
     const { status, search } = filterDto;
     const query = this.createQueryBuilder();
 
-    const tasks = await query.getMany();
-    return tasks;
+    if (status) {
+      query.andWhere('Task.status = :status', { status });
+    }
+
+    if (search) {
+      query.andWhere('(Task.title LIKE :search OR Task.description LIKE :search)', { search: `%${search}%` });
+    }
+
+    return await query.getMany();
   }
 
   async createTask(createTaskDto: CreateTaskDto) {
