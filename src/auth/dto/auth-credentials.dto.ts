@@ -1,4 +1,5 @@
 import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import { PASSWORD_REGEX_ERROR, PASSWORD_VALIDATION_REGEX } from 'src/const/common';
 
 export class AuthCredentialsDto {
 
@@ -10,6 +11,7 @@ export class AuthCredentialsDto {
   @IsString()
   @MinLength(8)
   @MaxLength(20)
-  @Matches(/((?=.*d)|(?=.*W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
+  @Matches(PASSWORD_VALIDATION_REGEX,
+           {message: PASSWORD_REGEX_ERROR})
   password: string;
 }
